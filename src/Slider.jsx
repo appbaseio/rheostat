@@ -120,6 +120,7 @@ class Rheostat extends React.Component {
       sliderBox: {},
       slidingIndex: null,
       values,
+      executedOnce: false,
     };
     this.getPublicState = this.getPublicState.bind(this);
     this.getSliderBoundingBox = this.getSliderBoundingBox.bind(this);
@@ -151,8 +152,8 @@ class Rheostat extends React.Component {
 
   componentDidUpdate(prevProps) {
     const nextProps = this.props;
-    const { values, slidingIndex } = this.state;
-    if (!isEqual(prevProps, nextProps)) {
+    const { values, slidingIndex, executedOnce } = this.state;
+    if (!executedOnce && !isEqual(prevProps, nextProps)) {
       const minMaxChanged =
         nextProps.min !== prevProps.min || nextProps.max !== prevProps.max;
 
@@ -172,7 +173,13 @@ class Rheostat extends React.Component {
         });
       }
 
-      if (minMaxChanged || valuesChanged) this.updateNewValues(nextProps);
+      if (!executedOnce && (minMaxChanged || valuesChanged)) {
+        this.updateNewValues(nextProps);
+      } else {
+        this.setState({
+          executedOnce: true,
+        });
+      }
 
       if (willBeDisabled && slidingIndex !== null) {
         this.endSlide();
