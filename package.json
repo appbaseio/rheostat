@@ -1,6 +1,6 @@
 {
   "name": "@appbaseio/rheostat",
-  "version": "1.0.0-alpha.2",
+  "version": "1.0.0-alpha.3",
   "description": "Rheostat is a www, mobile, and accessible slider component built with React",
   "main": "lib/Slider.js",
   "jsnext:main": "src/Slider.jsx",
