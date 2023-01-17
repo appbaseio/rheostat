@@ -636,7 +636,6 @@ class Rheostat extends React.Component {
       pitPoints,
       progressBar: ProgressBar,
     } = this.props;
-
     return (
       // eslint-disable-next-line jsx-a11y/no-static-element-interactions
       <div

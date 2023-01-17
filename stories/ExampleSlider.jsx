@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-no-bind */
 import React, { PropTypes } from 'react';
 import { storiesOf } from '@kadira/storybook';
 
@@ -40,9 +41,7 @@ class LabeledSlider extends React.Component {
         <ol>
           <lh>Values</lh>
           {this.state.values.map(value => (
-            <li key={value}>
-              {formatValue ? formatValue(value) : value}
-            </li>
+            <li key={value}>{formatValue ? formatValue(value) : value}</li>
           ))}
         </ol>
       </div>
@@ -59,9 +58,7 @@ LabeledSlider.defaultProps = {
 };
 
 storiesOf('Slider', module)
-  .add('A Simple Slider', () => (
-    <LabeledSlider />
-  ))
+  .add('A Simple Slider', () => <LabeledSlider />)
   .add('Custom Handle', () => {
     function MyHandle({ style, ...passProps }) {
       return (
@@ -88,17 +85,25 @@ storiesOf('Slider', module)
       style: null,
     };
 
-    return (
-      <LabeledSlider
-        handle={MyHandle}
-        values={[0, 100]}
-      />
-    );
+    return <LabeledSlider handle={MyHandle} values={[0, 100]} />;
   })
   .add('Dates', () => {
     const startDate = new Date('01-01-2015').valueOf();
     const endDate = new Date('12-31-2015').valueOf();
-    const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+    const months = [
+      'Jan',
+      'Feb',
+      'Mar',
+      'Apr',
+      'May',
+      'Jun',
+      'Jul',
+      'Aug',
+      'Sep',
+      'Oct',
+      'Nov',
+      'Dec',
+    ];
 
     function ordinal(n) {
       const rem = n < 10 || n > 20 ? n % 10 : 0;
@@ -125,11 +130,7 @@ storiesOf('Slider', module)
     );
   })
   .add('Large scale', () => (
-    <LabeledSlider
-      min={1}
-      max={1000000}
-      values={[1]}
-    />
+    <LabeledSlider min={1} max={1000000} values={[1]} />
   ))
   .add('Large scale (with many handles)', () => (
     <LabeledSlider
@@ -139,20 +140,9 @@ storiesOf('Slider', module)
     />
   ))
   .add('Logarithmic scale', () => (
-    <LabeledSlider
-      algorithm={log10}
-      min={1}
-      max={1000}
-      values={[100]}
-    />
+    <LabeledSlider algorithm={log10} min={1} max={1000} values={[100]} />
   ))
-  .add('Medium scale', () => (
-    <LabeledSlider
-      min={1}
-      max={40}
-      values={[10]}
-    />
-  ))
+  .add('Medium scale', () => <LabeledSlider min={1} max={40} values={[10]} />)
   .add('Pits', () => {
     function PitComponent({ style, children }) {
       return (
@@ -179,7 +169,10 @@ storiesOf('Slider', module)
     return (
       <LabeledSlider
         pitComponent={PitComponent}
-        pitPoints={[0, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70, 75, 80, 85, 90, 95, 100]} // eslint-disable-line max-len
+        pitPoints={[
+          0, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70, 75, 80, 85,
+          90, 95, 100,
+        ]} // eslint-disable-line max-len
         snap
         snapPoints={[0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100]}
         values={[40, 80]}
@@ -187,22 +180,8 @@ storiesOf('Slider', module)
     );
   })
   .add('Small scale (snap)', () => (
-    <LabeledSlider
-      max={5}
-      min={1}
-      snap
-      values={[3]}
-    />
+    <LabeledSlider max={5} min={1} snap values={[3]} />
   ))
-  .add('Snapping', () => (
-    <LabeledSlider
-      snap
-      snapPoints={[20, 40, 60, 80]}
-    />
-  ))
-  .add('Vertical', () => (
-    <LabeledSlider orientation="vertical" />
-  ))
-  .add('Disabled', () => (
-    <LabeledSlider disabled />
-  ));
+  .add('Snapping', () => <LabeledSlider snap snapPoints={[20, 40, 60, 80]} />)
+  .add('Vertical', () => <LabeledSlider orientation="vertical" />)
+  .add('Disabled', () => <LabeledSlider disabled />);
