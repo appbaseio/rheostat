@@ -152,33 +152,32 @@ class Rheostat extends React.Component {
   componentDidUpdate(prevProps) {
     const nextProps = this.props;
     const { values, slidingIndex } = this.state;
-    if (!isEqual(prevProps, nextProps)) {
-      const minMaxChanged =
-        nextProps.min !== prevProps.min || nextProps.max !== prevProps.max;
 
-      const valuesChanged =
-        values.length !== nextProps.values.length ||
-        values.some((value, idx) => nextProps.values[idx] !== value);
+    const minMaxChanged =
+      nextProps.min !== prevProps.min || nextProps.max !== prevProps.max;
 
-      const orientationChanged =
-        nextProps.className !== prevProps.className ||
-        nextProps.orientation !== prevProps.orientation;
+    const valuesChanged =
+      values.length !== nextProps.values.length ||
+      values.some((value, idx) => nextProps.values[idx] !== value);
 
-      const willBeDisabled = nextProps.disabled && !prevProps.disabled;
+    const orientationChanged =
+      nextProps.className !== prevProps.className ||
+      nextProps.orientation !== prevProps.orientation;
 
-      if (orientationChanged) {
-        this.setState({
-          className: getClassName(nextProps),
-        });
-      }
+    const willBeDisabled = nextProps.disabled && !prevProps.disabled;
 
-      if (minMaxChanged || valuesChanged) {
-        this.updateNewValues(nextProps);
-      }
+    if (orientationChanged) {
+      this.setState({
+        className: getClassName(nextProps),
+      });
+    }
 
-      if (willBeDisabled && slidingIndex !== null) {
-        this.endSlide();
-      }
+    if (minMaxChanged || valuesChanged) {
+      this.updateNewValues(nextProps);
+    }
+
+    if (willBeDisabled && slidingIndex !== null) {
+      this.endSlide();
     }
   }
 
